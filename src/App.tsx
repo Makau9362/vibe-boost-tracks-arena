@@ -8,6 +8,9 @@ import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Explore from "./pages/Explore";
 import Upload from "./pages/Upload";
+import Uploads from "./pages/Uploads";
+import Library from "./pages/Library";
+import Artist from "./pages/Artist";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +26,9 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/upload" element={<Upload />} />
+          <Route path="/uploads" element={<Uploads />} />
+          <Route path="/library" element={<Library />} />
+          <Route path="/artist/:artistId" element={<Artist />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

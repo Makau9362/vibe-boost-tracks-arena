@@ -64,9 +64,9 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				music: {
-					'dark': '#121212',
-					'card': '#181818',
-					'hover': '#282828',
+					'dark': 'var(--music-dark)',
+					'card': 'var(--music-card)',
+					'hover': 'var(--music-hover)',
 					'purple': '#9b87f5',
 					'light-purple': '#c4b5fd',
 					'blue': '#1EAEDB',

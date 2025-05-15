@@ -2,7 +2,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { MOCK_USERS, MOCK_TRACKS, MOCK_ARTIST_STATS } from "./constants";
-import { Artist, Fan, Track, UserRole } from "../types";
+import { Artist, Fan, Track, UserRole, Playlist } from "../types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -60,18 +60,55 @@ export function mockGetArtistStats(artistId: string) {
   return null;
 }
 
-export function mockPurchaseTrack(trackId: string, amount: number) {
+export function mockPurchaseTrack(trackId: string, amount: number): { success: boolean } {
   const user = mockGetCurrentUser();
-  if (!user || user.role !== 'fan') return false;
+  if (!user || user.role !== 'fan') return { success: false };
   
   // In a real app, we'd make API call to handle payment and update database
   return { success: true };
 }
 
-export function mockUploadTrack(track: Partial<Track>) {
+export function mockUploadTrack(track: Partial<Track>): { success: boolean, trackId: string } {
   const user = mockGetCurrentUser();
-  if (!user || user.role !== 'artist') return false;
+  if (!user || user.role !== 'artist') return { success: false, trackId: '' };
   
   // In a real app, we'd make API call to upload track
   return { success: true, trackId: `track${MOCK_TRACKS.length + 1}` };
+}
+
+// New mock functions for additional features
+export function mockGetUserLibrary(userId: string): { tracks: Track[], playlists: Playlist[] } {
+  if (!userId) return { tracks: [], playlists: [] };
+  
+  // In a real app, we'd fetch from database
+  const purchasedTracks = MOCK_TRACKS.slice(0, 3); // Mock first 3 tracks as purchased
+  
+  const playlists: Playlist[] = [
+    {
+      id: 'playlist1',
+      userId: userId,
+      name: 'My Favorites',
+      trackIds: [MOCK_TRACKS[0].id, MOCK_TRACKS[2].id],
+      createdAt: new Date('2023-01-15')
+    }
+  ];
+  
+  return { tracks: purchasedTracks, playlists };
+}
+
+export function mockGetArtistById(artistId: string): Artist | null {
+  const artist = MOCK_USERS.find(u => u.id === artistId && u.role === 'artist');
+  return artist as Artist || null;
+}
+
+export function mockGetArtistTracks(artistId: string): Track[] {
+  return MOCK_TRACKS.filter(track => track.artistId === artistId);
+}
+
+export function mockDeleteTrack(trackId: string): { success: boolean } {
+  const user = mockGetCurrentUser();
+  if (!user || user.role !== 'artist') return { success: false };
+  
+  // In a real app, we'd make API call to delete track
+  return { success: true };
 }

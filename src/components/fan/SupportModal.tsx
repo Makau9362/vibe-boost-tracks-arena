@@ -13,6 +13,7 @@ import { formatCurrency, formatTime, mockPurchaseTrack } from "@/lib/utils";
 import { Track } from "@/types";
 import { toast } from "sonner";
 import { SUPPORT_TIERS } from "@/lib/constants";
+import { Toggle } from "@/components/ui/toggle";
 
 interface SupportModalProps {
   track: Track | null;
@@ -22,7 +23,7 @@ interface SupportModalProps {
 }
 
 export function SupportModal({ track, isOpen, onClose, onSuccess }: SupportModalProps) {
-  const [selectedAmount, setSelectedAmount] = useState(track?.price || 50);
+  const [selectedAmount, setSelectedAmount] = useState(50);
   const [isPurchasing, setIsPurchasing] = useState(false);
   
   if (!track) return null;
@@ -34,7 +35,7 @@ export function SupportModal({ track, isOpen, onClose, onSuccess }: SupportModal
     setTimeout(() => {
       const result = mockPurchaseTrack(track.id, selectedAmount);
       
-      if (result.success) {
+      if (result && result.success) {
         toast.success(`Thank you for supporting ${track.artistName}!`);
         onSuccess();
       } else {
@@ -78,18 +79,18 @@ export function SupportModal({ track, isOpen, onClose, onSuccess }: SupportModal
           <h4 className="font-medium mb-3">Choose support amount:</h4>
           <div className="grid grid-cols-3 gap-2">
             {SUPPORT_TIERS.map((tier) => (
-              <Button
+              <Toggle
                 key={tier.value}
-                variant={selectedAmount === tier.value ? "default" : "outline"}
+                pressed={selectedAmount === tier.value}
+                onPressedChange={() => setSelectedAmount(tier.value)}
                 className={`border-gray-700 ${
                   selectedAmount === tier.value 
                     ? "bg-music-purple hover:bg-music-purple/90" 
                     : "hover:bg-gray-800"
                 }`}
-                onClick={() => setSelectedAmount(tier.value)}
               >
                 {tier.label}
-              </Button>
+              </Toggle>
             ))}
           </div>
         </div>

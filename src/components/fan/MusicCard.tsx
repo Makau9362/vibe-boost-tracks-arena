@@ -1,4 +1,5 @@
 
+import { Link } from "react-router-dom";
 import { formatCurrency } from "@/lib/utils";
 import { Track } from "@/types";
 
@@ -40,7 +41,13 @@ export function MusicCard({ track, onClick }: MusicCardProps) {
       </div>
       <h3 className="font-medium text-sm truncate">{track.title}</h3>
       <p className="text-xs text-gray-400 mt-1">
-        {track.artistName} · {formatCurrency(track.price)}
+        <Link 
+          to={`/artist/${track.artistId}`} 
+          className="hover:text-music-purple hover:underline"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {track.artistName}
+        </Link> · {formatCurrency(track.price)}
       </p>
     </div>
   );

@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { mockGetCurrentUser, mockLogout } from "@/lib/utils";
@@ -5,7 +6,9 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const Navigation = () => {
+// This is just a demonstration component showing how Navigation could be implemented
+// with the ThemeToggle. The actual integration would happen in the Navigation.tsx file.
+export function CustomNavigation() {
   const [currentUser, setCurrentUser] = useState<any>(null);
   const navigate = useNavigate();
 
@@ -67,6 +70,6 @@ const Navigation = () => {
       </div>
     </header>
   );
-};
+}
 
-export default Navigation;
+export default CustomNavigation;

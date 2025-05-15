@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import { MOCK_GENRES, SUPPORT_TIERS } from "@/lib/constants";
+import { MOCK_GENRES } from "@/lib/constants";
 import { mockUploadTrack } from "@/lib/utils";
 import { toast } from "sonner";
 
@@ -73,7 +73,7 @@ export function UploadForm() {
         audioFile: "audio-file-url",
       });
       
-      if (result.success) {
+      if (result && result.success) {
         toast.success("Track uploaded successfully!");
         navigate("/dashboard");
       } else {
@@ -119,25 +119,6 @@ export function UploadForm() {
                   ))}
                 </SelectContent>
               </Select>
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="price">Support Price: {price} KSh</Label>
-              <Slider
-                defaultValue={[50]}
-                min={SUPPORT_TIERS[0].value}
-                max={SUPPORT_TIERS[SUPPORT_TIERS.length - 1].value}
-                step={10}
-                onValueChange={(values) => setPrice(values[0])}
-                className="py-4"
-              />
-              <div className="flex justify-between text-xs text-gray-400">
-                {SUPPORT_TIERS.map((tier) => (
-                  <span key={tier.value} className="cursor-pointer" onClick={() => setPrice(tier.value)}>
-                    {tier.value}
-                  </span>
-                ))}
-              </div>
             </div>
             
             <div className="space-y-2">

@@ -39,6 +39,14 @@ export interface Track {
   downloads: number;
 }
 
+export interface Playlist {
+  id: string;
+  userId: string;
+  name: string;
+  trackIds: string[];
+  createdAt: Date;
+}
+
 export interface SupportTier {
   value: number;
   label: string;
