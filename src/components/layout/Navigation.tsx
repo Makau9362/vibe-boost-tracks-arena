@@ -1,5 +1,5 @@
+
 import { Link } from "react-router-dom";
-import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { mockGetCurrentUser, mockLogout } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -20,40 +20,38 @@ const Navigation = () => {
   };
 
   return (
-    <header className="bg-music-card border-b border-gray-200 dark:border-gray-800">
+    <header className="bg-black border-b border-gray-800">
       <div className="container mx-auto px-4 flex items-center justify-between h-16">
         <div className="flex items-center">
-          <Link to="/" className="text-2xl font-bold text-gradient-purple">
-            MelodySphere
+          <Link to="/" className="text-2xl font-bold text-white">
+            FANBAZE
           </Link>
           <nav className="hidden md:flex ml-10 space-x-6">
             {currentUser?.role === "fan" && (
               <>
-                <Link to="/explore" className="text-foreground hover:text-music-purple">Explore</Link>
-                <Link to="/library" className="text-foreground hover:text-music-purple">Library</Link>
+                <Link to="/explore" className="text-gray-300 hover:text-white">Explore</Link>
+                <Link to="/library" className="text-gray-300 hover:text-white">Library</Link>
               </>
             )}
             {currentUser?.role === "artist" && (
               <>
-                <Link to="/dashboard" className="text-foreground hover:text-music-purple">Dashboard</Link>
-                <Link to="/upload" className="text-foreground hover:text-music-purple">Upload</Link>
-                <Link to="/uploads" className="text-foreground hover:text-music-purple">My Uploads</Link>
+                <Link to="/dashboard" className="text-gray-300 hover:text-white">Dashboard</Link>
+                <Link to="/upload" className="text-gray-300 hover:text-white">Upload</Link>
+                <Link to="/uploads" className="text-gray-300 hover:text-white">My Uploads</Link>
               </>
             )}
           </nav>
         </div>
         
         <div className="flex items-center space-x-4">
-          <ThemeToggle />
-          
           {currentUser ? (
             <div className="flex items-center space-x-2">
-              <span className="text-sm text-muted-foreground">{currentUser.name}</span>
+              <span className="text-sm text-gray-400">{currentUser.name}</span>
               <Button 
                 variant="ghost" 
                 size="sm" 
                 onClick={handleLogout}
-                className="text-foreground hover:bg-accent"
+                className="text-white hover:bg-gray-800"
               >
                 Logout
               </Button>

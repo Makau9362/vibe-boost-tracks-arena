@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navigation from "@/components/layout/Navigation";
+import Sidebar from "@/components/layout/Sidebar";
 import UploadForm from "@/components/artist/UploadForm";
 import { mockGetCurrentUser } from "@/lib/utils";
 
@@ -28,17 +28,19 @@ const Upload = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse-light text-music-purple">Loading...</div>
+        <div className="animate-pulse-light text-white">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navigation />
-      <main className="flex-1">
-        <UploadForm />
-      </main>
+    <div className="min-h-screen flex flex-col bg-black text-white">
+      <div className="flex">
+        <Sidebar />
+        <main className="ml-64 flex-1">
+          <UploadForm />
+        </main>
+      </div>
     </div>
   );
 };
