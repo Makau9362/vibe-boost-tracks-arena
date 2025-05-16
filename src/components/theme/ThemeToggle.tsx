@@ -1,23 +1,26 @@
 
+// This component has been disabled since we're using dark theme only
+// The file exists for compatibility but its functionality is not used
+
 import { Button } from "@/components/ui/button";
-import { Moon, Sun } from "lucide-react";
-import { useTheme } from "./ThemeProvider";
+import { useTheme } from "next-themes";
+import { Moon } from "lucide-react";
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
-
+  // Force dark theme only
+  const { setTheme } = useTheme();
+  
+  // Always set to dark theme
+  setTheme("dark");
+  
   return (
     <Button
       variant="ghost"
       size="icon"
-      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className="w-9 px-0"
+      className="hidden" // Hide the button completely
+      aria-label="Toggle theme"
     >
-      {theme === "light" ? (
-        <Moon className="h-[1.2rem] w-[1.2rem]" />
-      ) : (
-        <Sun className="h-[1.2rem] w-[1.2rem]" />
-      )}
+      <Moon className="h-[1.2rem] w-[1.2rem]" />
       <span className="sr-only">Toggle theme</span>
     </Button>
   );

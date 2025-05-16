@@ -14,6 +14,7 @@ import { Track } from "@/types";
 import { toast } from "sonner";
 import { SUPPORT_TIERS } from "@/lib/constants";
 import { Toggle } from "@/components/ui/toggle";
+import { Download } from "lucide-react";
 
 interface SupportModalProps {
   track: Track | null;
@@ -25,6 +26,7 @@ interface SupportModalProps {
 export function SupportModal({ track, isOpen, onClose, onSuccess }: SupportModalProps) {
   const [selectedAmount, setSelectedAmount] = useState(50);
   const [isPurchasing, setIsPurchasing] = useState(false);
+  const [paymentComplete, setPaymentComplete] = useState(false);
   
   if (!track) return null;
 
@@ -37,14 +39,29 @@ export function SupportModal({ track, isOpen, onClose, onSuccess }: SupportModal
       
       if (result && result.success) {
         toast.success(`Thank you for supporting ${track.artistName}!`);
+        setPaymentComplete(true);
         onSuccess();
       } else {
         toast.error("Purchase failed. Please try again.");
       }
       
       setIsPurchasing(false);
-      onClose();
     }, 1500);
+  };
+
+  const handleDownload = () => {
+    // In a real app, this would trigger a file download
+    toast.success(`Downloading ${track.title}...`);
+    
+    // Simulate download by creating a temporary link
+    const link = document.createElement('a');
+    link.href = track.audioUrl || '#';
+    link.download = `${track.title} - ${track.artistName}.mp3`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    onClose();
   };
 
   return (
@@ -75,25 +92,32 @@ export function SupportModal({ track, isOpen, onClose, onSuccess }: SupportModal
           </div>
         </div>
         
-        <div className="py-4">
-          <h4 className="font-medium mb-3">Choose support amount:</h4>
-          <div className="grid grid-cols-3 gap-2">
-            {SUPPORT_TIERS.map((tier) => (
-              <Toggle
-                key={tier.value}
-                pressed={selectedAmount === tier.value}
-                onPressedChange={() => setSelectedAmount(tier.value)}
-                className={`border-gray-700 ${
-                  selectedAmount === tier.value 
-                    ? "bg-music-purple hover:bg-music-purple/90" 
-                    : "hover:bg-gray-800"
-                }`}
-              >
-                {tier.label}
-              </Toggle>
-            ))}
+        {!paymentComplete ? (
+          <div className="py-4">
+            <h4 className="font-medium mb-3">Choose support amount:</h4>
+            <div className="grid grid-cols-3 gap-2">
+              {SUPPORT_TIERS.map((tier) => (
+                <Toggle
+                  key={tier.value}
+                  pressed={selectedAmount === tier.value}
+                  onPressedChange={() => setSelectedAmount(tier.value)}
+                  className={`border-gray-700 ${
+                    selectedAmount === tier.value 
+                      ? "bg-music-purple hover:bg-music-purple/90" 
+                      : "hover:bg-gray-800"
+                  }`}
+                >
+                  {tier.label}
+                </Toggle>
+              ))}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="py-4 text-center">
+            <p className="text-green-400 font-medium mb-3">Payment successful!</p>
+            <p className="text-gray-300">You can now download this track.</p>
+          </div>
+        )}
         
         <DialogFooter>
           <Button 
@@ -103,13 +127,23 @@ export function SupportModal({ track, isOpen, onClose, onSuccess }: SupportModal
           >
             Cancel
           </Button>
-          <Button 
-            onClick={handlePurchase}
-            className="bg-music-green hover:bg-music-green/90"
-            disabled={isPurchasing}
-          >
-            {isPurchasing ? "Processing..." : `Support ${formatCurrency(selectedAmount)}`}
-          </Button>
+          
+          {!paymentComplete ? (
+            <Button 
+              onClick={handlePurchase}
+              className="bg-music-green hover:bg-music-green/90"
+              disabled={isPurchasing}
+            >
+              {isPurchasing ? "Processing..." : `Support ${formatCurrency(selectedAmount)}`}
+            </Button>
+          ) : (
+            <Button 
+              onClick={handleDownload}
+              className="bg-music-purple hover:bg-music-purple/90"
+            >
+              <Download className="h-4 w-4 mr-2" /> Download Track
+            </Button>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>
