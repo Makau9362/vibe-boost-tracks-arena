@@ -1,5 +1,5 @@
 
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArtistStats } from "@/types";
 import { formatCurrency } from "@/lib/utils";
@@ -19,7 +19,7 @@ const StatsOverview = ({ stats }: StatsOverviewProps) => {
         <CardContent>
           <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={stats.monthlyRevenue}>
+              <LineChart data={stats.monthlyRevenue}>
                 <XAxis dataKey="month" stroke="#9b87f5" fontSize={12} tickLine={false} axisLine={false} />
                 <YAxis
                   stroke="#9b87f5"
@@ -36,13 +36,15 @@ const StatsOverview = ({ stats }: StatsOverviewProps) => {
                     borderRadius: '6px',
                   }}
                 />
-                <Bar
+                <Line
+                  type="monotone"
                   dataKey="amount"
-                  fill="#9b87f5"
-                  radius={[4, 4, 0, 0]}
-                  maxBarSize={50}
+                  stroke="#9b87f5"
+                  strokeWidth={2}
+                  dot={{ r: 4, fill: "#9b87f5", strokeWidth: 0 }}
+                  activeDot={{ r: 6 }}
                 />
-              </BarChart>
+              </LineChart>
             </ResponsiveContainer>
           </div>
         </CardContent>

@@ -1,20 +1,13 @@
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import MusicCard from "./MusicCard";
 import PlaylistCard from "./PlaylistCard";
 import CreatePlaylistModal from "./CreatePlaylistModal";
-import { mockGetCurrentUser, mockGetUserLibrary } from "@/lib/utils";
+import { mockGetCurrentUser, mockGetUserLibrary, formatTime } from "@/lib/utils";
 import { Playlist, Track } from "@/types";
 import { Button } from "@/components/ui/button";
 import { PlusCircle, Play, Pause } from "lucide-react";
-
-// Utility function for formatting track duration
-const formatTime = (seconds: number): string => {
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = Math.floor(seconds % 60);
-  return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
-};
 
 export function LibraryContent() {
   const [library, setLibrary] = useState<{tracks: Track[], playlists: Playlist[]}>({ tracks: [], playlists: [] });

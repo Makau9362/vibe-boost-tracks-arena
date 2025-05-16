@@ -55,7 +55,7 @@ export function SupportModal({ track, isOpen, onClose, onSuccess }: SupportModal
     
     // Simulate download by creating a temporary link
     const link = document.createElement('a');
-    link.href = track.audioUrl || '#';
+    link.href = track.audioFile || '#';
     link.download = `${track.title} - ${track.artistName}.mp3`;
     document.body.appendChild(link);
     link.click();

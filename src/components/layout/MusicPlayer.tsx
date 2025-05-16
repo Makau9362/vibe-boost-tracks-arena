@@ -9,9 +9,10 @@ import {
   VolumeX,
   Heart,
 } from "lucide-react";
-import { formatTime } from "@/lib/utils";
+import { formatTime, mockGetUserLibrary, mockGetCurrentUser } from "@/lib/utils";
 import { Track } from "@/types";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 interface MusicPlayerProps {
   track?: Track | null;
@@ -26,8 +27,27 @@ export function MusicPlayer({ track, onNext, onPrevious }: MusicPlayerProps) {
   const [volume, setVolume] = useState(0.7);
   const [isMuted, setIsMuted] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const [canPlay, setCanPlay] = useState(false);
   
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  
+  // Check if the track is in user's library (i.e., has been supported)
+  useEffect(() => {
+    if (!track) return;
+    
+    const currentUser = mockGetCurrentUser();
+    if (!currentUser) return;
+    
+    const { tracks } = mockGetUserLibrary(currentUser.id);
+    const isTrackInLibrary = tracks.some(t => t.id === track.id);
+    
+    setCanPlay(isTrackInLibrary);
+    
+    if (!isTrackInLibrary && isPlaying) {
+      setIsPlaying(false);
+      toast.error("You need to support this track before you can play it in full.");
+    }
+  }, [track]);
   
   // Initialize audio
   useEffect(() => {
@@ -38,8 +58,10 @@ export function MusicPlayer({ track, onNext, onPrevious }: MusicPlayerProps) {
     setCurrentTime(0);
     setDuration(track.duration);
     
-    if (isPlaying) {
+    if (isPlaying && canPlay) {
       setIsPlaying(true);
+    } else {
+      setIsPlaying(false);
     }
     
     return () => {
@@ -47,11 +69,11 @@ export function MusicPlayer({ track, onNext, onPrevious }: MusicPlayerProps) {
         audioRef.current.pause();
       }
     };
-  }, [track]);
+  }, [track, canPlay]);
 
   // Handle play/pause
   useEffect(() => {
-    if (!audioRef.current) return;
+    if (!audioRef.current || !canPlay) return;
     
     if (isPlaying) {
       // In a real app with real audio files:
@@ -71,7 +93,7 @@ export function MusicPlayer({ track, onNext, onPrevious }: MusicPlayerProps) {
       
       return () => clearInterval(interval);
     }
-  }, [isPlaying, duration]);
+  }, [isPlaying, duration, canPlay]);
 
   // Handle volume change
   useEffect(() => {
@@ -85,10 +107,19 @@ export function MusicPlayer({ track, onNext, onPrevious }: MusicPlayerProps) {
   }, [volume, isMuted]);
 
   const togglePlayPause = () => {
+    if (!canPlay && !isPlaying) {
+      toast.error("You need to support this track before you can play it in full.");
+      return;
+    }
     setIsPlaying(!isPlaying);
   };
 
   const handleProgressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!canPlay) {
+      toast.error("You need to support this track before you can play it in full.");
+      return;
+    }
+    
     const newTime = parseFloat(e.target.value);
     setCurrentTime(newTime);
     

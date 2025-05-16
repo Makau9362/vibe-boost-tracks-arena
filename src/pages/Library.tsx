@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "@/components/layout/Sidebar";
+import Navigation from "@/components/layout/Navigation";
 import { mockGetCurrentUser } from "@/lib/utils";
 import LibraryContent from "@/components/fan/LibraryContent";
 
@@ -35,16 +35,14 @@ const Library = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-black text-white">
-      <div className="flex">
-        <Sidebar />
-        <main className="ml-64 flex-1 container mx-auto px-4 py-6 pb-36">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-1 text-white">My Library</h1>
-            <p className="text-gray-400">Your downloaded music and playlists</p>
-          </div>
-          <LibraryContent />
-        </main>
-      </div>
+      <Navigation />
+      <main className="flex-1 container mx-auto px-4 py-6 pb-36">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold mb-1 text-white">My Library</h1>
+          <p className="text-gray-400">Your downloaded music and playlists</p>
+        </div>
+        <LibraryContent />
+      </main>
     </div>
   );
 };
