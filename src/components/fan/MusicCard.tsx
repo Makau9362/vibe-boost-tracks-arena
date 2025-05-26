@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { formatCurrency } from "@/lib/utils";
-import { Play, Pause } from "lucide-react";
+import { Play, Pause, Lock } from "lucide-react";
 import { Track } from "@/types";
 
 interface MusicCardProps {
@@ -11,11 +11,11 @@ interface MusicCardProps {
 }
 
 export function MusicCard({ track, onClick }: MusicCardProps) {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [showPrice, setShowPrice] = useState(false);
   
-  const handlePlayClick = (e: React.MouseEvent) => {
+  const handleCardClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsPlaying(!isPlaying);
+    setShowPrice(true);
     
     if (onClick) {
       onClick();
@@ -25,7 +25,7 @@ export function MusicCard({ track, onClick }: MusicCardProps) {
   return (
     <div 
       className="music-card group transition-all duration-200 cursor-pointer"
-      onClick={handlePlayClick}
+      onClick={handleCardClick}
     >
       <div className="relative mb-3 aspect-square bg-gray-900 rounded overflow-hidden">
         <img 
@@ -35,11 +35,7 @@ export function MusicCard({ track, onClick }: MusicCardProps) {
         />
         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
           <div className="h-12 w-12 rounded-full bg-white flex items-center justify-center transform translate-y-2 group-hover:translate-y-0 transition-transform">
-            {isPlaying ? (
-              <Pause className="text-black" size={20} />
-            ) : (
-              <Play className="text-black ml-1" size={20} />
-            )}
+            <Lock className="text-black" size={20} />
           </div>
         </div>
       </div>
@@ -51,7 +47,10 @@ export function MusicCard({ track, onClick }: MusicCardProps) {
           onClick={(e) => e.stopPropagation()}
         >
           {track.artistName}
-        </Link> · {formatCurrency(track.price)}
+        </Link>
+        {showPrice && (
+          <span> · {formatCurrency(track.price)}</span>
+        )}
       </p>
     </div>
   );

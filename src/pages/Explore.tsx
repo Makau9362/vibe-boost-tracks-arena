@@ -31,6 +31,7 @@ const Explore = () => {
 
   const handleTrackSelect = (track: Track) => {
     setSelectedTrack(track);
+    setIsModalOpen(true);
   };
   
   const handleSupportClick = () => {
@@ -39,6 +40,7 @@ const Explore = () => {
   
   const handleSupportSuccess = () => {
     // In a real app, update user's purchased tracks list
+    setIsModalOpen(false);
   };
 
   if (isLoading) {
@@ -53,7 +55,7 @@ const Explore = () => {
     <div className="min-h-screen flex flex-col">
       <Navigation />
       
-      <main className="flex-1 container mx-auto px-4 py-6 pb-36">
+      <main className="flex-1 container mx-auto px-4 py-6 pb-48">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-1 text-gradient-purple">Explore</h1>
           <p className="text-gray-400">Discover amazing music and support your favorite artists</p>
@@ -83,15 +85,6 @@ const Explore = () => {
       
       {selectedTrack && (
         <>
-          <div className="fixed bottom-24 right-6 z-40">
-            <button
-              onClick={handleSupportClick}
-              className="bg-music-purple hover:bg-music-purple/90 text-white rounded-full px-4 py-2 shadow-lg flex items-center space-x-2"
-            >
-              <span>Support Artist</span>
-            </button>
-          </div>
-          
           <MusicPlayer
             track={selectedTrack}
             onNext={() => {}}
