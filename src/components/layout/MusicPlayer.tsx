@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import {
   Play,
@@ -147,7 +146,7 @@ export function MusicPlayer({ track, onNext, onPrevious }: MusicPlayerProps) {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-music-card border-t border-gray-800 px-2 sm:px-4 py-2 sm:py-3">
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-black border-t border-gray-800 px-2 sm:px-4 py-2 sm:py-3">
       <div className="container mx-auto flex items-center justify-between">
         {/* Track Info */}
         <div className="flex items-center space-x-2 sm:space-x-3 w-1/3 sm:w-1/4 min-w-0">
