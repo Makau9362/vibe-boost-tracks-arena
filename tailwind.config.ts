@@ -64,13 +64,21 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				music: {
-					'dark': 'var(--music-dark)',
-					'card': 'var(--music-card)',
-					'hover': 'var(--music-hover)',
-					'purple': '#9b87f5',
-					'light-purple': '#c4b5fd',
-					'blue': '#1EAEDB',
-					'green': '#1ED760'
+					'dark': '#0a0a0a',
+					'card': '#111111',
+					'hover': '#1a5a1a',
+					'purple': '#22c55e',
+					'light-purple': '#86efac',
+					'blue': '#16a34a',
+					'green': '#22c55e'
+				},
+				kick: {
+					'bg': '#0a0a0a',
+					'card': '#111111',
+					'green': '#22c55e',
+					'green-dark': '#16a34a',
+					'green-light': '#86efac',
+					'border': '#1f2937'
 				}
 			},
 			borderRadius: {
@@ -102,13 +110,18 @@ export default {
 				'fade-in': {
 					'0%': { opacity: '0', transform: 'translateY(10px)' },
 					'100%': { opacity: '1', transform: 'translateY(0)' }
+				},
+				'glow': {
+					'0%, 100%': { boxShadow: '0 0 20px rgba(34, 197, 94, 0.3)' },
+					'50%': { boxShadow: '0 0 30px rgba(34, 197, 94, 0.5)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'pulse-light': 'pulse-light 2s ease-in-out infinite',
-				'fade-in': 'fade-in 0.3s ease-out'
+				'fade-in': 'fade-in 0.3s ease-out',
+				'glow': 'glow 2s ease-in-out infinite'
 			},
 			fontFamily: {
 				'sans': ['Inter', 'sans-serif'],
