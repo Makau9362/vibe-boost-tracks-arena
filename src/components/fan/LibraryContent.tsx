@@ -91,11 +91,11 @@ export function LibraryContent() {
         
         <TabsContent value="tracks" className="animate-fade-in">
           {library.tracks.length > 0 ? (
-            <div className="space-y-2 sm:space-y-3">
+            <div className="space-y-0">
               {library.tracks.map((track, index) => (
                 <div 
                   key={track.id} 
-                  className="flex items-center p-3 sm:p-4 bg-music-card rounded-lg hover:bg-gray-900 cursor-pointer transition-colors"
+                  className="flex items-center p-3 sm:p-4 hover:bg-purple-950/20 cursor-pointer transition-colors"
                   onClick={() => handlePlayTrack(track)}
                 >
                   <div className="flex items-center mr-3 sm:mr-4 w-6 sm:w-8">

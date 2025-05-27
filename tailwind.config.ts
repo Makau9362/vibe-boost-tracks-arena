@@ -66,18 +66,18 @@ export default {
 				music: {
 					'dark': '#0a0a0a',
 					'card': '#111111',
-					'hover': '#1a5a1a',
-					'purple': '#22c55e',
-					'light-purple': '#86efac',
-					'blue': '#16a34a',
-					'green': '#22c55e'
+					'hover': '#4c1d95',
+					'purple': '#a855f7',
+					'light-purple': '#c084fc',
+					'blue': '#7c3aed',
+					'green': '#a855f7'
 				},
 				kick: {
 					'bg': '#0a0a0a',
 					'card': '#111111',
-					'green': '#22c55e',
-					'green-dark': '#16a34a',
-					'green-light': '#86efac',
+					'green': '#a855f7',
+					'green-dark': '#7c3aed',
+					'green-light': '#c084fc',
 					'border': '#1f2937'
 				}
 			},
@@ -112,8 +112,8 @@ export default {
 					'100%': { opacity: '1', transform: 'translateY(0)' }
 				},
 				'glow': {
-					'0%, 100%': { boxShadow: '0 0 20px rgba(34, 197, 94, 0.3)' },
-					'50%': { boxShadow: '0 0 30px rgba(34, 197, 94, 0.5)' }
+					'0%, 100%': { boxShadow: '0 0 20px rgba(168, 85, 247, 0.3)' },
+					'50%': { boxShadow: '0 0 30px rgba(168, 85, 247, 0.5)' }
 				}
 			},
 			animation: {
