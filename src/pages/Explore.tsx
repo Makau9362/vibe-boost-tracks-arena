@@ -61,8 +61,8 @@ const Explore = () => {
       <main className="flex-1 container mx-auto px-2 sm:px-4 py-4 sm:py-6 pb-48">
         <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
-            <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-1 text-gradient-purple">Explore</h1>
-            <p className="text-sm sm:text-base text-gray-400">Discover amazing music and support your favorite artists</p>
+            <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-1 text-gradient">Explore</h1>
+            <p className="text-sm sm:text-base text-gray-600">Discover amazing music and support your favorite artists</p>
           </div>
           
           {/* Search Bar */}
@@ -73,13 +73,13 @@ const Explore = () => {
               placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 bg-music-card border-gray-800 text-white placeholder:text-gray-400 text-sm"
+              className="pl-10 bg-white border-gray-300 text-black placeholder:text-gray-400 text-sm"
             />
           </div>
         </div>
         
         <Tabs defaultValue="all" className="mb-8">
-          <TabsList className="bg-music-card mb-6 w-full overflow-x-auto">
+          <TabsList className="bg-white mb-6 w-full overflow-x-auto">
             <TabsTrigger value="all" className="text-xs sm:text-sm">All Genres</TabsTrigger>
             {MOCK_GENRES.slice(0, 5).map((genre) => (
               <TabsTrigger 
