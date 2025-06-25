@@ -59,21 +59,23 @@ const Explore = () => {
       <Navigation />
       
       <main className="flex-1 container mx-auto px-2 sm:px-4 py-4 sm:py-6 pb-48">
-        <div className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold mb-1 text-gradient-purple">Explore</h1>
-          <p className="text-sm sm:text-base text-gray-400">Discover amazing music and support your favorite artists</p>
-        </div>
-        
-        {/* Search Bar */}
-        <div className="relative mb-6 sm:mb-8">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-          <Input
-            type="text"
-            placeholder="Search for songs or artists..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 bg-music-card border-gray-800 text-white placeholder:text-gray-400"
-          />
+        <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+          <div>
+            <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-1 text-gradient-purple">Explore</h1>
+            <p className="text-sm sm:text-base text-gray-400">Discover amazing music and support your favorite artists</p>
+          </div>
+          
+          {/* Search Bar */}
+          <div className="relative sm:w-64 md:w-80">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Input
+              type="text"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 bg-music-card border-gray-800 text-white placeholder:text-gray-400 text-sm"
+            />
+          </div>
         </div>
         
         <Tabs defaultValue="all" className="mb-8">
