@@ -27,14 +27,14 @@ const Dashboard = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse-light text-music-purple">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="animate-pulse text-foreground">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navigation />
       <main className="flex-1 pb-24">
         <ArtistDashboard />

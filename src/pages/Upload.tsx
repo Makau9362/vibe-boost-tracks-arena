@@ -27,14 +27,14 @@ const Upload = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse-light text-white">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="animate-pulse text-foreground">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-black text-white">
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
       <div className="flex">
         <Sidebar />
         <main className="ml-64 flex-1">

@@ -44,20 +44,20 @@ const Artist = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse-light text-music-purple">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="animate-pulse text-foreground">Loading...</div>
       </div>
     );
   }
 
   if (!artist) {
     return (
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-background">
         <Navigation />
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-2xl font-bold mb-2">Artist Not Found</h1>
-            <p className="text-gray-400">The artist you're looking for doesn't exist.</p>
+            <h1 className="text-2xl font-bold mb-2 text-foreground">Artist Not Found</h1>
+            <p className="text-muted-foreground">The artist you're looking for doesn't exist.</p>
           </div>
         </div>
       </div>
@@ -65,12 +65,12 @@ const Artist = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navigation />
       
       <main className="flex-1 container mx-auto px-4 py-6 pb-36">
         <div className="flex flex-col md:flex-row gap-8 items-center md:items-start mb-12">
-          <div className="w-40 h-40 rounded-full overflow-hidden bg-music-hover">
+          <div className="w-40 h-40 rounded-full overflow-hidden bg-muted">
             {artist.profileImage ? (
               <img 
                 src={artist.profileImage} 
@@ -78,8 +78,8 @@ const Artist = () => {
                 className="h-full w-full object-cover"
               />
             ) : (
-              <div className="h-full w-full flex items-center justify-center bg-music-hover">
-                <span className="text-4xl font-bold text-gray-500">
+              <div className="h-full w-full flex items-center justify-center bg-muted">
+                <span className="text-4xl font-bold text-muted-foreground">
                   {artist.name.charAt(0)}
                 </span>
               </div>
@@ -88,22 +88,22 @@ const Artist = () => {
           
           <div className="text-center md:text-left">
             <div className="mb-4">
-              <h4 className="text-sm text-gray-400 mb-1">Artist</h4>
-              <h1 className="text-4xl font-bold text-gradient-purple">{artist.name}</h1>
+              <h4 className="text-sm text-muted-foreground mb-1">Artist</h4>
+              <h1 className="text-4xl font-bold text-foreground">{artist.name}</h1>
             </div>
             
             <div className="flex flex-wrap gap-4 justify-center md:justify-start">
               <div>
-                <h4 className="text-xs text-gray-400">Tracks</h4>
-                <p className="text-xl font-semibold">{artist.totalTracks}</p>
+                <h4 className="text-xs text-muted-foreground">Tracks</h4>
+                <p className="text-xl font-semibold text-foreground">{artist.totalTracks}</p>
               </div>
               <div>
-                <h4 className="text-xs text-gray-400">Supporters</h4>
-                <p className="text-xl font-semibold">{artist.totalFans}</p>
+                <h4 className="text-xs text-muted-foreground">Supporters</h4>
+                <p className="text-xl font-semibold text-foreground">{artist.totalFans}</p>
               </div>
               <div>
-                <h4 className="text-xs text-gray-400">Joined</h4>
-                <p className="text-xl font-semibold">
+                <h4 className="text-xs text-muted-foreground">Joined</h4>
+                <p className="text-xl font-semibold text-foreground">
                   {new Date(artist.createdAt).toLocaleDateString(undefined, {
                     year: "numeric", 
                     month: "short"
@@ -113,13 +113,13 @@ const Artist = () => {
             </div>
             
             {artist.bio && (
-              <p className="mt-4 text-gray-300 max-w-xl">{artist.bio}</p>
+              <p className="mt-4 text-muted-foreground max-w-xl">{artist.bio}</p>
             )}
           </div>
         </div>
         
         <div>
-          <h2 className="text-2xl font-bold mb-6">Tracks by {artist.name}</h2>
+          <h2 className="text-2xl font-bold mb-6 text-foreground">Tracks by {artist.name}</h2>
           
           {tracks.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
@@ -133,7 +133,7 @@ const Artist = () => {
             </div>
           ) : (
             <div className="text-center py-10">
-              <p className="text-gray-400">No tracks available</p>
+              <p className="text-muted-foreground">No tracks available</p>
             </div>
           )}
         </div>
@@ -144,7 +144,7 @@ const Artist = () => {
           <div className="fixed bottom-24 right-6 z-40">
             <button
               onClick={handleSupportClick}
-              className="bg-music-purple hover:bg-music-purple/90 text-white rounded-full px-4 py-2 shadow-lg flex items-center space-x-2"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-4 py-2 shadow-lg flex items-center space-x-2"
             >
               <span>Support Artist</span>
             </button>

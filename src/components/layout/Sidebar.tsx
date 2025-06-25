@@ -27,12 +27,12 @@ export function Sidebar() {
   };
 
   return (
-    <div className={`h-screen bg-black border-r border-gray-800 transition-all ${isCollapsed ? 'w-20' : 'w-64'} fixed left-0 top-0 z-40`}>
+    <div className={`h-screen bg-background border-r border-border transition-all ${isCollapsed ? 'w-20' : 'w-64'} fixed left-0 top-0 z-40`}>
       <div className="flex flex-col h-full">
-        <div className="p-4 border-b border-gray-800">
+        <div className="p-4 border-b border-border">
           <div className="flex items-center justify-between">
             {!isCollapsed && (
-              <Link to="/" className="text-2xl font-bold text-white">
+              <Link to="/" className="text-2xl font-bold text-foreground">
                 FANBAZE
               </Link>
             )}
@@ -40,7 +40,7 @@ export function Sidebar() {
               variant="ghost" 
               size="sm" 
               onClick={() => setIsCollapsed(!isCollapsed)}
-              className="text-white hover:bg-gray-800"
+              className="text-foreground hover:bg-accent"
             >
               {isCollapsed ? '→' : '←'}
             </Button>
@@ -52,14 +52,14 @@ export function Sidebar() {
             <div className="space-y-1 px-3">
               <Link 
                 to="/explore" 
-                className={`flex items-center space-x-3 px-3 py-2 rounded-md ${isActive('/explore') ? 'bg-gray-800 text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white'}`}
+                className={`flex items-center space-x-3 px-3 py-2 rounded-md ${isActive('/explore') ? 'bg-accent text-foreground' : 'text-muted-foreground hover:bg-accent hover:text-foreground'}`}
               >
                 <Home size={20} />
                 {!isCollapsed && <span>Explore</span>}
               </Link>
               <Link 
                 to="/library" 
-                className={`flex items-center space-x-3 px-3 py-2 rounded-md ${isActive('/library') ? 'bg-gray-800 text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white'}`}
+                className={`flex items-center space-x-3 px-3 py-2 rounded-md ${isActive('/library') ? 'bg-accent text-foreground' : 'text-muted-foreground hover:bg-accent hover:text-foreground'}`}
               >
                 <Library size={20} />
                 {!isCollapsed && <span>Library</span>}
@@ -71,21 +71,21 @@ export function Sidebar() {
             <div className="space-y-1 px-3">
               <Link 
                 to="/dashboard" 
-                className={`flex items-center space-x-3 px-3 py-2 rounded-md ${isActive('/dashboard') ? 'bg-gray-800 text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white'}`}
+                className={`flex items-center space-x-3 px-3 py-2 rounded-md ${isActive('/dashboard') ? 'bg-accent text-foreground' : 'text-muted-foreground hover:bg-accent hover:text-foreground'}`}
               >
                 <LayoutDashboard size={20} />
                 {!isCollapsed && <span>Dashboard</span>}
               </Link>
               <Link 
                 to="/upload" 
-                className={`flex items-center space-x-3 px-3 py-2 rounded-md ${isActive('/upload') ? 'bg-gray-800 text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white'}`}
+                className={`flex items-center space-x-3 px-3 py-2 rounded-md ${isActive('/upload') ? 'bg-accent text-foreground' : 'text-muted-foreground hover:bg-accent hover:text-foreground'}`}
               >
                 <Upload size={20} />
                 {!isCollapsed && <span>Upload</span>}
               </Link>
               <Link 
                 to="/uploads" 
-                className={`flex items-center space-x-3 px-3 py-2 rounded-md ${isActive('/uploads') ? 'bg-gray-800 text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white'}`}
+                className={`flex items-center space-x-3 px-3 py-2 rounded-md ${isActive('/uploads') ? 'bg-accent text-foreground' : 'text-muted-foreground hover:bg-accent hover:text-foreground'}`}
               >
                 <ListMusic size={20} />
                 {!isCollapsed && <span>My Uploads</span>}
@@ -95,16 +95,16 @@ export function Sidebar() {
         </nav>
         
         {currentUser && (
-          <div className="p-4 border-t border-gray-800">
+          <div className="p-4 border-t border-border">
             <div className="flex items-center justify-between">
               {!isCollapsed && (
-                <span className="text-sm text-gray-400">{currentUser.name}</span>
+                <span className="text-sm text-muted-foreground">{currentUser.name}</span>
               )}
               <Button 
                 variant="ghost" 
                 size="sm" 
                 onClick={handleLogout}
-                className="text-white hover:bg-gray-800"
+                className="text-foreground hover:bg-accent"
               >
                 {isCollapsed ? 'Out' : 'Logout'}
               </Button>

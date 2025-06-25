@@ -27,20 +27,20 @@ const Uploads = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse-light text-white">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="animate-pulse text-foreground">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-black text-white">
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
       <div className="flex">
         <Sidebar />
         <main className="ml-64 flex-1 container mx-auto px-4 py-6 pb-36">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-1 text-white">My Uploads</h1>
-            <p className="text-gray-400">Manage your uploaded tracks</p>
+            <h1 className="text-3xl font-bold mb-1 text-foreground">My Uploads</h1>
+            <p className="text-muted-foreground">Manage your uploaded tracks</p>
           </div>
           <UploadsManager />
         </main>
