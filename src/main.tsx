@@ -5,7 +5,7 @@ import './index.css'
 import { ThemeProvider } from './components/theme/ThemeProvider.tsx'
 
 createRoot(document.getElementById("root")!).render(
-  <ThemeProvider defaultTheme="dark">
+  <ThemeProvider defaultTheme="system">
     <App />
   </ThemeProvider>
 );

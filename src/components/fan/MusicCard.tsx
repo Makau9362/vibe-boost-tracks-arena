@@ -24,32 +24,32 @@ export function MusicCard({ track, onClick }: MusicCardProps) {
   
   return (
     <div 
-      className="music-card group transition-all duration-200 cursor-pointer p-2 sm:p-4 hover:border-gray-300"
+      className="music-card group transition-all duration-200 cursor-pointer p-2 sm:p-4 hover:border-muted-foreground"
       onClick={handleCardClick}
     >
-      <div className="relative mb-2 sm:mb-3 aspect-square bg-gray-100 border border-gray-200 rounded-none overflow-hidden">
+      <div className="relative mb-2 sm:mb-3 aspect-square bg-muted border border-border rounded-none overflow-hidden">
         <img 
           src={track.coverImage} 
           alt={track.title}
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-          <div className="h-8 w-8 sm:h-12 sm:w-12 rounded-full bg-black flex items-center justify-center transform translate-y-2 group-hover:translate-y-0 transition-transform">
-            <Lock className="text-white" size={16} />
+        <div className="absolute inset-0 bg-background/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+          <div className="h-8 w-8 sm:h-12 sm:w-12 rounded-full bg-foreground flex items-center justify-center transform translate-y-2 group-hover:translate-y-0 transition-transform">
+            <Lock className="text-background" size={16} />
           </div>
         </div>
       </div>
-      <h3 className="font-medium text-xs sm:text-sm truncate text-black">{track.title}</h3>
-      <p className="text-xs text-gray-600 mt-1">
+      <h3 className="font-medium text-xs sm:text-sm truncate text-foreground">{track.title}</h3>
+      <p className="text-xs text-muted-foreground mt-1">
         <Link 
           to={`/artist/${track.artistId}`} 
-          className="hover:text-gray-800 hover:underline"
+          className="hover:text-foreground hover:underline"
           onClick={(e) => e.stopPropagation()}
         >
           {track.artistName}
         </Link>
         {showPrice && (
-          <span className="text-black"> · {formatCurrency(track.price)}</span>
+          <span className="text-foreground"> · {formatCurrency(track.price)}</span>
         )}
       </p>
     </div>
