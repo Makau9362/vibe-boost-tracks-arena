@@ -125,6 +125,7 @@ export default {
 			},
 			fontFamily: {
 				'sans': ['Inter', 'sans-serif'],
+				'pixer': ['Pixter', 'sans-serif'],
 			}
 		}
 	},

@@ -11,11 +11,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
 import { MOCK_GENRES } from "@/lib/constants";
 
-const Navigation = () => {
+interface NavigationProps {
+  onSearchChange?: (query: string) => void;
+}
+
+const Navigation = ({ onSearchChange }: NavigationProps) => {
   const [currentUser, setCurrentUser] = useState<any>(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,6 +32,12 @@ const Navigation = () => {
   const handleLogout = () => {
     mockLogout();
     navigate("/");
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    onSearchChange?.(query);
   };
 
   return (
@@ -64,8 +76,22 @@ const Navigation = () => {
             )}
           </nav>
         </div>
-        
+
         <div className="flex items-center space-x-4">
+          {/* Search Bar - only show on explore page for fans */}
+          {currentUser?.role === "fan" && window.location.pathname === "/explore" && (
+            <div className="relative w-64 md:w-80">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+              <Input
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={handleSearchChange}
+                className="pl-10 bg-background border-border text-foreground placeholder:text-muted-foreground text-sm"
+              />
+            </div>
+          )}
+          
           <ThemeToggle />
           
           {currentUser ? (

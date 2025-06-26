@@ -7,8 +7,6 @@ import MusicPlayer from "@/components/layout/MusicPlayer";
 import SupportModal from "@/components/fan/SupportModal";
 import { Track } from "@/types";
 import { mockGetCurrentUser } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
 
 const Explore = () => {
   const [currentUser, setCurrentUser] = useState<any>(null);
@@ -44,6 +42,11 @@ const Explore = () => {
     setIsModalOpen(false);
   };
 
+  // Function to receive search query from Navigation
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
@@ -54,25 +57,11 @@ const Explore = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <Navigation />
+      <Navigation onSearchChange={handleSearchChange} />
       
       <main className="flex-1 container mx-auto px-2 sm:px-4 py-4 sm:py-6 pb-48">
-        <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-          <div>
-            <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-1 text-foreground">Explore</h1>
-          </div>
-          
-          {/* Search Bar */}
-          <div className="relative sm:w-64 md:w-80">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-            <Input
-              type="text"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 bg-background border-border text-foreground placeholder:text-muted-foreground text-sm rounded-none"
-            />
-          </div>
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-1 text-foreground font-pixer">Explore</h1>
         </div>
         
         <MusicGrid onTrackSelect={handleTrackSelect} searchQuery={searchQuery} />
