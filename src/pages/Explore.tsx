@@ -61,7 +61,7 @@ const Explore = () => {
       
       <main className="flex-1 container mx-auto px-2 sm:px-4 py-4 sm:py-6 pb-48">
         <div className="mb-6 sm:mb-8">
-          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-1 text-foreground font-pixer">Explore</h1>
+          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-1 text-foreground" style={{ fontFamily: 'Arial Black, Arial, sans-serif' }}>Explore</h1>
         </div>
         
         <MusicGrid onTrackSelect={handleTrackSelect} searchQuery={searchQuery} />
