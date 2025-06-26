@@ -5,10 +5,8 @@ import Navigation from "@/components/layout/Navigation";
 import MusicGrid from "@/components/fan/MusicGrid";
 import MusicPlayer from "@/components/layout/MusicPlayer";
 import SupportModal from "@/components/fan/SupportModal";
-import { MOCK_GENRES } from "@/lib/constants";
 import { Track } from "@/types";
 import { mockGetCurrentUser } from "@/lib/utils";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
@@ -62,7 +60,6 @@ const Explore = () => {
         <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
             <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-1 text-foreground">Explore</h1>
-            <p className="text-sm sm:text-base text-muted-foreground">Discover amazing music and support your favorite artists</p>
           </div>
           
           {/* Search Bar */}
@@ -78,30 +75,7 @@ const Explore = () => {
           </div>
         </div>
         
-        <Tabs defaultValue="all" className="mb-8">
-          <TabsList className="bg-foreground mb-6 w-full overflow-x-auto rounded-none">
-            <TabsTrigger value="all" className="text-xs sm:text-sm text-background data-[state=active]:bg-background data-[state=active]:text-foreground">All Genres</TabsTrigger>
-            {MOCK_GENRES.slice(0, 5).map((genre) => (
-              <TabsTrigger 
-                key={genre} 
-                value={genre} 
-                className="hidden sm:flex text-xs sm:text-sm whitespace-nowrap text-background data-[state=active]:bg-background data-[state=active]:text-foreground"
-              >
-                {genre}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          
-          <TabsContent value="all" className="animate-fade-in">
-            <MusicGrid onTrackSelect={handleTrackSelect} searchQuery={searchQuery} />
-          </TabsContent>
-          
-          {MOCK_GENRES.slice(0, 5).map((genre) => (
-            <TabsContent key={genre} value={genre} className="animate-fade-in">
-              <MusicGrid onTrackSelect={handleTrackSelect} searchQuery={searchQuery} />
-            </TabsContent>
-          ))}
-        </Tabs>
+        <MusicGrid onTrackSelect={handleTrackSelect} searchQuery={searchQuery} />
       </main>
       
       {selectedTrack && (

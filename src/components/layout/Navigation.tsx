@@ -5,6 +5,14 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ChevronDown } from "lucide-react";
+import { MOCK_GENRES } from "@/lib/constants";
 
 const Navigation = () => {
   const [currentUser, setCurrentUser] = useState<any>(null);
@@ -32,6 +40,19 @@ const Navigation = () => {
               <>
                 <Link to="/explore" className="text-muted-foreground hover:text-foreground">Explore</Link>
                 <Link to="/library" className="text-muted-foreground hover:text-foreground">Library</Link>
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="flex items-center space-x-1 text-muted-foreground hover:text-foreground">
+                    <span>Genres</span>
+                    <ChevronDown className="h-4 w-4" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="bg-popover border border-border">
+                    {MOCK_GENRES.map((genre) => (
+                      <DropdownMenuItem key={genre} className="text-popover-foreground hover:bg-accent hover:text-accent-foreground">
+                        {genre}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </>
             )}
             {currentUser?.role === "artist" && (

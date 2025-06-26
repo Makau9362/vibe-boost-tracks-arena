@@ -36,12 +36,12 @@ export function MusicGrid({ onTrackSelect, searchQuery = "" }: MusicGridProps) {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-5">
-        {[...Array(10)].map((_, i) => (
+      <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2 sm:gap-3">
+        {[...Array(20)].map((_, i) => (
           <div key={i} className="animate-pulse">
-            <div className="bg-music-hover h-32 sm:h-40 w-full rounded-lg mb-3"></div>
-            <div className="bg-music-hover h-3 sm:h-4 w-3/4 rounded mb-2"></div>
-            <div className="bg-music-hover h-2 sm:h-3 w-1/2 rounded"></div>
+            <div className="bg-muted h-16 sm:h-20 w-full mb-2"></div>
+            <div className="bg-muted h-2 w-3/4 mb-1"></div>
+            <div className="bg-muted h-2 w-1/2"></div>
           </div>
         ))}
       </div>
@@ -51,7 +51,7 @@ export function MusicGrid({ onTrackSelect, searchQuery = "" }: MusicGridProps) {
   if (filteredTracks.length === 0) {
     return (
       <div className="text-center py-10">
-        <p className="text-gray-400">
+        <p className="text-muted-foreground">
           {searchQuery ? "No tracks found matching your search" : "No tracks available"}
         </p>
       </div>
@@ -59,7 +59,7 @@ export function MusicGrid({ onTrackSelect, searchQuery = "" }: MusicGridProps) {
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-5">
+    <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2 sm:gap-3">
       {filteredTracks.map((track) => (
         <MusicCard 
           key={track.id} 
