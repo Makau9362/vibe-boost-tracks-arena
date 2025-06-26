@@ -29,26 +29,26 @@ export function ArtistDashboard() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="animate-pulse-light text-music-purple">Loading...</div>
+      <div className="flex items-center justify-center h-screen bg-background">
+        <div className="animate-pulse text-foreground">Loading...</div>
       </div>
     );
   }
 
   if (!artist || !stats) {
-    return <div>Error loading dashboard</div>;
+    return <div className="bg-background text-foreground">Error loading dashboard</div>;
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 bg-background">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gradient-purple">{artist.name}</h1>
-          <p className="text-gray-400 mt-1">{artist.bio || "Artist"}</p>
+          <h1 className="text-3xl font-bold text-foreground">{artist.name}</h1>
+          <p className="text-muted-foreground mt-1">{artist.bio || "Artist"}</p>
         </div>
         
         <Button 
-          className="bg-music-purple hover:bg-music-purple/90 mt-4 md:mt-0"
+          className="bg-foreground text-background hover:bg-muted-foreground mt-4 md:mt-0 rounded-none"
           onClick={() => navigate('/upload')}
         >
           <Upload className="h-4 w-4 mr-2" /> 
@@ -57,38 +57,38 @@ export function ArtistDashboard() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <Card className="bg-music-card border-gray-800">
+        <Card className="bg-card border-border rounded-none">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm text-gray-400">Total Revenue</CardTitle>
+            <CardTitle className="text-sm text-muted-foreground">Total Revenue</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center">
               <DollarSign className="h-5 w-5 text-green-500 mr-2" />
-              <span className="text-2xl font-bold">{formatCurrency(stats.totalSales)}</span>
+              <span className="text-2xl font-bold text-foreground">{formatCurrency(stats.totalSales)}</span>
             </div>
           </CardContent>
         </Card>
         
-        <Card className="bg-music-card border-gray-800">
+        <Card className="bg-card border-border rounded-none">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm text-gray-400">Total Downloads</CardTitle>
+            <CardTitle className="text-sm text-muted-foreground">Total Downloads</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center">
               <Download className="h-5 w-5 text-blue-500 mr-2" />
-              <span className="text-2xl font-bold">{stats.totalDownloads}</span>
+              <span className="text-2xl font-bold text-foreground">{stats.totalDownloads}</span>
             </div>
           </CardContent>
         </Card>
         
-        <Card className="bg-music-card border-gray-800">
+        <Card className="bg-card border-border rounded-none">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm text-gray-400">Total Uploads</CardTitle>
+            <CardTitle className="text-sm text-muted-foreground">Total Uploads</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center">
               <Users className="h-5 w-5 text-purple-500 mr-2" />
-              <span className="text-2xl font-bold">{artist.totalTracks}</span>
+              <span className="text-2xl font-bold text-foreground">{artist.totalTracks}</span>
             </div>
           </CardContent>
         </Card>
@@ -99,11 +99,11 @@ export function ArtistDashboard() {
       </div>
 
       <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">Recent Transactions</h2>
-        <div className="bg-music-card border border-gray-800 rounded-lg overflow-hidden">
+        <h2 className="text-xl font-semibold mb-4 text-foreground">Recent Transactions</h2>
+        <div className="bg-card border border-border rounded-none overflow-hidden">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-gray-800 text-gray-400">
+              <tr className="border-b border-border text-muted-foreground">
                 <th className="text-left py-3 px-4 font-medium text-sm">Date</th>
                 <th className="text-left py-3 px-4 font-medium text-sm">Track</th>
                 <th className="text-left py-3 px-4 font-medium text-sm">Amount</th>
@@ -111,7 +111,7 @@ export function ArtistDashboard() {
             </thead>
             <tbody>
               {stats.recentTransactions.map((transaction) => (
-                <tr key={transaction.id} className="border-b border-gray-800 hover:bg-music-hover">
+                <tr key={transaction.id} className="border-b border-border hover:bg-accent text-foreground">
                   <td className="py-3 px-4 text-sm">{formatDate(transaction.date)}</td>
                   <td className="py-3 px-4 text-sm">
                     {stats.topTracks.find(t => t.trackId === transaction.trackId)?.title || "Unknown Track"}

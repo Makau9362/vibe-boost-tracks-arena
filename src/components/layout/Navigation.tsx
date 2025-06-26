@@ -21,7 +21,7 @@ const Navigation = () => {
   };
 
   return (
-    <header className="bg-background border-b border-border">
+    <header className="bg-background">
       <div className="container mx-auto px-4 flex items-center justify-between h-16">
         <div className="flex items-center">
           <Link to="/" className="text-2xl font-bold text-foreground">
