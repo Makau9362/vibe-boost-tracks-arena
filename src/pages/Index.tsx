@@ -2,25 +2,33 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthForm from "@/components/auth/AuthForm";
-import { mockGetCurrentUser } from "@/lib/utils";
+import { getCurrentUser } from "@/lib/supabase";
 
 const Index = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const currentUser = mockGetCurrentUser();
-    
-    if (currentUser) {
-      setIsLoggedIn(true);
-      
-      // Redirect based on user role
-      if (currentUser.role === "artist") {
-        navigate("/dashboard");
-      } else {
-        navigate("/explore");
+    const checkAuth = async () => {
+      try {
+        const currentUser = await getCurrentUser();
+        
+        if (currentUser) {
+          setIsLoggedIn(true);
+          
+          // Redirect based on user role
+          if (currentUser.role === "artist") {
+            navigate("/dashboard");
+          } else {
+            navigate("/explore");
+          }
+        }
+      } catch (error) {
+        console.error("Auth check failed:", error);
       }
-    }
+    };
+
+    checkAuth();
   }, [navigate]);
 
   return (

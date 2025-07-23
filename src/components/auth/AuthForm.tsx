@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { UserRole } from "@/types";
-import { mockLogin } from "@/lib/utils";
+import { signIn, signUp } from "@/lib/supabase";
 import { toast } from "sonner";
 
 export function AuthForm() {
@@ -21,57 +21,32 @@ export function AuthForm() {
     setIsLoading(true);
 
     try {
-      // In a real app, we would call an API endpoint
-      const { success, user } = mockLogin(email, password, role);
-      
-      if (success) {
-        toast.success(`Welcome back, ${user.name}!`);
-        
-        // Redirect based on user role
-        if (role === "artist") {
-          navigate("/dashboard");
-        } else {
-          navigate("/explore");
-        }
-      } else {
-        toast.error("Login failed. Please check your credentials.");
-      }
-    } catch (error) {
-      toast.error("An error occurred. Please try again.");
+      await signIn(email, password);
+      toast.success("Login successful!");
+      window.location.reload(); // Refresh to load user state
+    } catch (error: any) {
+      toast.error(error.message || "Login failed. Please check your credentials.");
       console.error(error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const demoLogin = (demoRole: UserRole) => {
-    const demoCredentials = {
-      artist: { email: "artist@example.com", password: "password" },
-      fan: { email: "fan@example.com", password: "password" }
-    };
+  const handleSignUp = async () => {
+    if (!email || !password) {
+      toast.error("Please fill in all fields");
+      return;
+    }
     
-    setEmail(demoCredentials[demoRole].email);
-    setPassword(demoCredentials[demoRole].password);
-    setRole(demoRole);
-    
-    // Submit the form after a small delay to show the filled fields
-    setTimeout(() => {
-      const { success, user } = mockLogin(
-        demoCredentials[demoRole].email, 
-        demoCredentials[demoRole].password, 
-        demoRole
-      );
-      
-      if (success) {
-        toast.success(`Welcome back, ${user.name}!`);
-        
-        if (demoRole === "artist") {
-          navigate("/dashboard");
-        } else {
-          navigate("/explore");
-        }
-      }
-    }, 500);
+    setIsLoading(true);
+    try {
+      await signUp(email, password, { name: email.split('@')[0], role });
+      toast.success("Account created successfully! Please check your email to verify.");
+    } catch (error: any) {
+      toast.error(error.message || "Account creation failed");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -135,7 +110,15 @@ export function AuthForm() {
         </Button>
         
         <div className="text-center text-gray-500 text-sm mt-4">
-          <p>Don't have an account? <a href="#" className="text-music-purple hover:underline">Sign up</a></p>
+          <p>Don't have an account? 
+            <button 
+              type="button"
+              onClick={handleSignUp}
+              className="text-music-purple hover:underline ml-1"
+            >
+              Sign up
+            </button>
+          </p>
         </div>
       </form>
       
@@ -149,21 +132,8 @@ export function AuthForm() {
           </div>
         </div>
         
-        <div className="grid grid-cols-2 gap-3">
-          <Button
-            variant="outline"
-            onClick={() => demoLogin("fan")}
-            className="border-gray-700 hover:bg-gray-800"
-          >
-            Fan Demo
-          </Button>
-          <Button
-            variant="outline"
-            onClick={() => demoLogin("artist")}
-            className="border-gray-700 hover:bg-gray-800"
-          >
-            Artist Demo
-          </Button>
+        <div className="text-center text-sm text-gray-500">
+          <p>Create an account to get started with FANBAZE</p>
         </div>
       </div>
     </div>

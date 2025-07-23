@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import MusicCard from "./MusicCard";
-import { mockGetTracks } from "@/lib/utils";
+import { getTracks } from "@/lib/supabase";
 import { Track } from "@/types";
 
 interface MusicGridProps {
@@ -15,10 +15,31 @@ export function MusicGrid({ onTrackSelect, searchQuery = "" }: MusicGridProps) {
   const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
-    // Fetch tracks
-    const fetchedTracks = mockGetTracks();
-    setTracks(fetchedTracks);
-    setIsLoading(false);
+    const fetchTracks = async () => {
+      try {
+        const fetchedTracks = await getTracks();
+        setTracks(fetchedTracks.map(track => ({
+          id: track.id,
+          title: track.title,
+          artistId: track.artist_id,
+          artistName: track.artist_name,
+          coverImage: track.cover_image || 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=300&fit=crop&crop=center',
+          audioFile: track.audio_file || '',
+          price: Number(track.price),
+          duration: track.duration,
+          genre: track.genre || 'Unknown',
+          releaseDate: new Date(track.release_date || track.created_at),
+          downloads: track.downloads || 0,
+        })));
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch tracks:", error);
+        setTracks([]);
+        setIsLoading(false);
+      }
+    };
+
+    fetchTracks();
   }, []);
 
   useEffect(() => {

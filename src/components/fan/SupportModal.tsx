@@ -9,7 +9,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { formatCurrency, formatTime, mockPurchaseTrack } from "@/lib/utils";
+import { formatCurrency, formatTime } from "@/lib/utils";
+import { purchaseTrack } from "@/lib/supabase";
 import { Track } from "@/types";
 import { toast } from "sonner";
 import { SUPPORT_TIERS } from "@/lib/constants";
@@ -30,23 +31,19 @@ export function SupportModal({ track, isOpen, onClose, onSuccess }: SupportModal
   
   if (!track) return null;
 
-  const handlePurchase = () => {
+  const handlePurchase = async () => {
     setIsPurchasing(true);
     
-    // In a real app, we would call a payment processing API
-    setTimeout(() => {
-      const result = mockPurchaseTrack(track.id, selectedAmount);
-      
-      if (result && result.success) {
-        toast.success(`Thank you for supporting ${track.artistName}!`);
-        setPaymentComplete(true);
-        onSuccess();
-      } else {
-        toast.error("Purchase failed. Please try again.");
-      }
-      
+    try {
+      await purchaseTrack(track.id, selectedAmount, track.artistId);
+      toast.success(`Thank you for supporting ${track.artistName}!`);
+      setPaymentComplete(true);
+      onSuccess();
+    } catch (error: any) {
+      toast.error(error.message || "Purchase failed. Please try again.");
+    } finally {
       setIsPurchasing(false);
-    }, 1500);
+    }
   };
 
   const handleDownload = () => {

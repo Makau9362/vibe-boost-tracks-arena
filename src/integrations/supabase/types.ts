@@ -14,7 +14,167 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      playlists: {
+        Row: {
+          created_at: string | null
+          id: string
+          name: string
+          track_ids: string[] | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          name: string
+          track_ids?: string[] | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          name?: string
+          track_ids?: string[] | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          bio: string | null
+          created_at: string | null
+          email: string
+          favorite_artists: string[] | null
+          genres: string[] | null
+          id: string
+          name: string
+          profile_image: string | null
+          role: Database["public"]["Enums"]["user_role"]
+          total_fans: number | null
+          total_sales: number | null
+          total_tracks: number | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string | null
+          email: string
+          favorite_artists?: string[] | null
+          genres?: string[] | null
+          id?: string
+          name: string
+          profile_image?: string | null
+          role?: Database["public"]["Enums"]["user_role"]
+          total_fans?: number | null
+          total_sales?: number | null
+          total_tracks?: number | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string | null
+          email?: string
+          favorite_artists?: string[] | null
+          genres?: string[] | null
+          id?: string
+          name?: string
+          profile_image?: string | null
+          role?: Database["public"]["Enums"]["user_role"]
+          total_fans?: number | null
+          total_sales?: number | null
+          total_tracks?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      purchase_transactions: {
+        Row: {
+          amount: number
+          artist_id: string
+          created_at: string | null
+          fan_id: string
+          id: string
+          track_id: string
+        }
+        Insert: {
+          amount: number
+          artist_id: string
+          created_at?: string | null
+          fan_id: string
+          id?: string
+          track_id: string
+        }
+        Update: {
+          amount?: number
+          artist_id?: string
+          created_at?: string | null
+          fan_id?: string
+          id?: string
+          track_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "purchase_transactions_track_id_fkey"
+            columns: ["track_id"]
+            isOneToOne: false
+            referencedRelation: "tracks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tracks: {
+        Row: {
+          artist_id: string
+          artist_name: string
+          audio_file: string | null
+          cover_image: string | null
+          created_at: string | null
+          downloads: number | null
+          duration: number
+          genre: string | null
+          id: string
+          price: number
+          release_date: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          artist_id: string
+          artist_name: string
+          audio_file?: string | null
+          cover_image?: string | null
+          created_at?: string | null
+          downloads?: number | null
+          duration?: number
+          genre?: string | null
+          id?: string
+          price?: number
+          release_date?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          artist_id?: string
+          artist_name?: string
+          audio_file?: string | null
+          cover_image?: string | null
+          created_at?: string | null
+          downloads?: number | null
+          duration?: number
+          genre?: string | null
+          id?: string
+          price?: number
+          release_date?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +183,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      user_role: "fan" | "artist"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +310,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      user_role: ["fan", "artist"],
+    },
   },
 } as const

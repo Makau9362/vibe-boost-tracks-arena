@@ -5,7 +5,7 @@ import MusicGrid from "@/components/fan/MusicGrid";
 import MusicPlayer from "@/components/layout/MusicPlayer";
 import SupportModal from "@/components/fan/SupportModal";
 import { Track } from "@/types";
-import { mockGetCurrentUser } from "@/lib/utils";
+import { getCurrentUser } from "@/lib/supabase";
 
 const Explore = () => {
   const [currentUser, setCurrentUser] = useState<any>(null);
@@ -16,15 +16,24 @@ const Explore = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const user = mockGetCurrentUser();
-    
-    if (!user) {
-      navigate("/");
-      return;
-    }
-    
-    setCurrentUser(user);
-    setIsLoading(false);
+    const checkAuth = async () => {
+      try {
+        const user = await getCurrentUser();
+        
+        if (!user) {
+          navigate("/");
+          return;
+        }
+        
+        setCurrentUser(user);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Auth check failed:", error);
+        navigate("/");
+      }
+    };
+
+    checkAuth();
   }, [navigate]);
 
   const handleTrackSelect = (track: Track) => {

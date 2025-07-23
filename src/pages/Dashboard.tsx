@@ -3,26 +3,35 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navigation from "@/components/layout/Navigation";
 import ArtistDashboard from "@/components/artist/ArtistDashboard";
-import { mockGetCurrentUser } from "@/lib/utils";
+import { getCurrentUser } from "@/lib/supabase";
 
 const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const currentUser = mockGetCurrentUser();
-    
-    if (!currentUser) {
-      navigate("/");
-      return;
-    }
-    
-    if (currentUser.role !== "artist") {
-      navigate("/explore");
-      return;
-    }
-    
-    setIsLoading(false);
+    const checkAuth = async () => {
+      try {
+        const currentUser = await getCurrentUser();
+        
+        if (!currentUser) {
+          navigate("/");
+          return;
+        }
+        
+        if (currentUser.role !== "artist") {
+          navigate("/explore");
+          return;
+        }
+        
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Auth check failed:", error);
+        navigate("/");
+      }
+    };
+
+    checkAuth();
   }, [navigate]);
 
   if (isLoading) {
